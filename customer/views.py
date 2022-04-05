@@ -9,6 +9,7 @@ from customer.models import Cart,Orders
 from customer.decorators import signin_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
+from django.db.models import Sum
 
 
 # Create your views here.
@@ -102,8 +103,15 @@ class ViewMyCart(ListView):
     model = Cart
     template_name = "mycart.html"
     context_object_name = "carts"
-    def get_queryset(self):
-        return Cart.objects.filter(user=self.request.user).exclude(status="cancelled").order_by("-date")
+    # def get_queryset(self):
+    #     return Cart.objects.filter(user=self.request.user).exclude(status="cancelled").order_by("-date")
+    def get(self,request,*args,**kwargs):
+        carts=Cart.objects.filter(user=self.request.user).exclude(status="cancelled").order_by("-date")
+        total=carts.objects.filter(user=request.user).exclude(status="cancelled").aggregate(sum("product__amount"))
+        context={
+            "carts":carts,"total":total}
+        return render(request,"mycart.html",context)
+
 
 
 def remove_from_cart(request,*args,**kwargs):
@@ -133,3 +141,10 @@ class OrderCreateView(CreateView):
             cart.save()
             messages.success(request,"Your order has been placed")
         return redirect("custhome")
+
+class OrdersListView(ListView):
+    model =     Orders
+    template_name = "order_list.html"
+    context_object_name = "orders"
+    def get_queryset(self):
+        return Orders.objects.filter(user=self.request.user).order_by("-date")

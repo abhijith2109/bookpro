@@ -1,7 +1,8 @@
 {%extends 'c_base.html'%}
 {%block body_block%}
 
-{%for cart in carts%}
+<div class="row-8">
+    {%for cart in carts%}
 <div class="row mt-2">
     <div class="col-4">
         <img src="{{cart.product.image.url}}" alt="" height="300px" width="200px">
@@ -27,4 +28,9 @@
 </div>
 
 {%endfor%}
+
+</div>
+<div class="row-4">
+
+</div>
 {%endblock%}
