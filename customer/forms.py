@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from customer.models import Orders
 
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control"}))
@@ -40,3 +41,14 @@ class PasswordResetForm(forms.Form):
         if newpassword!=confirmpassword:
             msg="Password Miss Match"
             self.add_error("newpassword",msg)
+
+class OrderForm(forms.ModelForm):
+    class Meta():
+        model=Orders
+        fields=[
+            "address"
+        ]
+
+        widgets={
+            "address":forms.Textarea(attrs={"class":"form-control"})
+        }

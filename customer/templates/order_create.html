@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,8 @@
 
 </head>
 <body>
-
+{%extends 'c_base.html'%}
+{%block body_block%}
 <div class="container">
   <div class="row">
     <div class="col-2"></div>
@@ -16,11 +18,13 @@
       <form action=""method="post">
         {%csrf_token%}
         {{form.as_p}}
-        <input type="submit"value="Change Password">
+        <input type="submit"value="Order">
       </form>
     </div>
     <div class="col-2"></div>
   </div>
 </div>
+{%endblock%}
+
 </body>
 </html>
