@@ -107,9 +107,11 @@ class ViewMyCart(ListView):
     #     return Cart.objects.filter(user=self.request.user).exclude(status="cancelled").order_by("-date")
     def get(self,request,*args,**kwargs):
         carts=Cart.objects.filter(user=self.request.user).exclude(status="cancelled").order_by("-date")
-        total=carts.objects.filter(user=request.user).exclude(status="cancelled").aggregate(sum("product__amount"))
+        total=Cart.objects.filter(user=request.user).exclude(status="cancelled").aggregate(Sum("product__amount"))
+
+        gtotal=total.get("product__amount__sum")
         context={
-            "carts":carts,"total":total}
+            "carts":carts,"total":gtotal}
         return render(request,"mycart.html",context)
 
 

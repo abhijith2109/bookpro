@@ -31,7 +31,9 @@ path("owner/book/add",views.AddBookView.as_view(),name="addbook"),
     path("books/<int:id>",views.BookDetailView.as_view(),name="bookdetails"),
     path("books/remove/<int:id>",views.BookDeleteView.as_view(),name="bookdelete"),
     path("books/change/<int:id>",views.EditBookView.as_view(),name="editbook"),
-    path("customers/",include("customer.urls"))
+    path("customers/",include("customer.urls")),
+    path("owner/dashboard",views.DashboardView.as_view(),name="dashboard"),
+    path("owner/order/<int:id>",views.OrderDetailView.as_view(),name="orderdetail")
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

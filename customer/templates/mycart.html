@@ -1,36 +1,53 @@
 {%extends 'c_base.html'%}
 {%block body_block%}
-
-<div class="row-8">
-    {%for cart in carts%}
-<div class="row mt-2">
-    <div class="col-4">
-        <img src="{{cart.product.image.url}}" alt="" height="300px" width="200px">
-    </div>
-    <div class="col-4 mt-5">
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-                Featured
+<div class="row">
+    <div class="col-8">
+        {%for cart in carts%}
+        <div class="row">
+            <div class="col-4">
+                {%if cart.product.image%}
+                <img src="{{cart.product.image.url}}" alt="" width="65%" height="200px">
+                {%endif%}
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{cart.product.book_name}}</li>
-                <li class="list-group-item">{{cart.product.author}}</li>
-                <li class="list-group-item">{{cart.date}}</li>
-            </ul>
+            <div class="col-4 mt-5">
+                <div class="card" style="width: 18rem;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{cart.product.book_name}}</li>
+                        <li class="list-group-item">{{cart.product.author}}</li>
+                        <li class="list-group-item">{{cart.date}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-4 mt-5 " >
+
+
+                    <a href="{%url 'ordercreate' cart.id cart.product.id %}" class="btn btn-primary mt-2">Buy Now</a>
+                    <!--        <button  type="button" class="btn btn-outline-danger">Delete</button>-->
+                    <div>
+                        <a href="{%url 'removeitem' cart.id%}" class="btn btn-danger mt-2">Remove</a>
+                        <!--            <button type="button" class="btn btn-outline-primary mt-2" >Buy Now</button>-->
+
+
+
+            </div>
+        </div>
+
+        <hr>
+    </div>
+    {%endfor%}
+
+</div>
+<div class="col-4 mt-5">
+    <div class="card">
+        <div class="card-header">
+            Price Details
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <strong>Total Amount :{{total}}</strong>
         </div>
     </div>
-    <div class="col-4 mt-5">
-        <a href="{%url 'ordercreate' cart.id cart.product.id%}" class="btn btn-primary">Buy Now</a>
-        <a href="{%url 'removeitem' cart.id%}" class="btn btn-danger">Remove</a>
-    </div>
-
-    <hr>
 </div>
-
-{%endfor%}
-
-</div>
-<div class="row-4">
-
 </div>
 {%endblock%}
