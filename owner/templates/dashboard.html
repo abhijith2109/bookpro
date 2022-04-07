@@ -12,26 +12,28 @@
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                  data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                   <table class="table">
-                       <tr>
+                    <table class="table">
+                        <tr>
 
-                           <th>Product Name</th>
-                           <th>User Name</th>
-                           <th>Date</th>
-                           <th>Action</th>
-                       </tr>
-                       {%for order in new_orders%}
-                       <tr>
-                           <td>{{order.product.book_name}}</td>
-                           <td>{{request.user.username}}</td>
-                           <td>{{order.date}}</td>
-                           <td>
-                               <a href="{%url 'orderdetail' order.id%}"class="btn btn-primary">View</a>
-                               <a href=""class="btn btn-success">Edit</a>
-                           </td>
-                       </tr>
-                       {%endfor%}
-                   </table>
+                            <th>Product Name</th>
+                            <th>User Name</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                        {%for order in new_orders%}
+                        <tr>
+                            <td>{{order.product.book_name}}</td>
+                            <td>{{request.user.username}}</td>
+                            <td>{{order.date}}</td>
+                            <td>
+                                <a href="{%url 'orderdetail' order.id%}" class="btn btn-primary">View</a>
+                                <a href="{%url 'updateorder' order.id%}" class="btn btn-danger">Edit</a>
+
+
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </table>
                 </div>
             </div>
         </div>

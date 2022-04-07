@@ -33,7 +33,8 @@ path("owner/book/add",views.AddBookView.as_view(),name="addbook"),
     path("books/change/<int:id>",views.EditBookView.as_view(),name="editbook"),
     path("customers/",include("customer.urls")),
     path("owner/dashboard",views.DashboardView.as_view(),name="dashboard"),
-    path("owner/order/<int:id>",views.OrderDetailView.as_view(),name="orderdetail")
+    path("owner/order/<int:id>",views.OrderDetailView.as_view(),name="orderdetail"),
+    path("owner/order/change/<int:id>",views.OrderChangeView.as_view(),name="updateorder")
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

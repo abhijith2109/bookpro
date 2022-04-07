@@ -1,5 +1,6 @@
 from django import forms
 from owner.models import Books
+from customer.models import Orders
 
 # class BookForm(forms.Form):
 #     book_name=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))  #widget= only inputs no char field
@@ -30,4 +31,19 @@ class BookForm(forms.ModelForm):
 
         }
 
+class OrderEditForm(forms.ModelForm):
+    options = (
+        ("orderplaced", "orderplaced"),
+        ("dispatched", "dispatched"),
+        ("in_transit", "in_transit"),
+        ("delivered", "delivered")
 
+    )
+    status=forms.ChoiceField(choices=options,widget=forms.Select(attrs={"class":"form-select"}))
+    class Meta:
+        model=Orders
+        fields=["expected_delivery_date","status"]
+        widgets={
+            "expected_delivery_date":forms.DateInput(attrs={"class":"form-control","type":"date"}),
+            "status":forms.Select(attrs={"class":"form-select"})
+        }
